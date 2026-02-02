@@ -41,12 +41,16 @@
       color:var(--text);
       background:var(--soft);
       line-height:1.55;
+      overflow-x:hidden;
     }
 
     .wrap{
       max-width:980px;
       margin:0 auto;
       padding:20px 16px 60px;
+      padding-left:max(16px,env(safe-area-inset-left));
+      padding-right:max(16px,env(safe-area-inset-right));
+      padding-bottom:max(60px,env(safe-area-inset-bottom));
     }
 
     .top{
@@ -54,6 +58,7 @@
       border:1px solid var(--border);
       border-radius:18px;
       padding:18px;
+      box-shadow:0 1px 2px rgba(0,0,0,.04);
     }
 
     .topHeader{
@@ -63,33 +68,35 @@
       gap:12px;
     }
 
-    h1{margin:0;font-size:28px;}
-    .sub{margin:6px 0 0;color:var(--muted)}
+    h1{margin:0; font-size:clamp(24px,5vw,30px); letter-spacing:-.02em;}
+    .sub{margin:6px 0 0; color:var(--muted)}
 
-    .nav{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
     .pill{
+      display:inline-block;
       padding:7px 10px;
       border-radius:999px;
       border:1px solid var(--border);
       background:var(--soft);
+      color:var(--text);
       font-weight:700;
       font-size:13px;
       text-decoration:none;
-      color:var(--text);
     }
 
     section{margin-top:18px;}
-    .sectionTitle{font-size:18px;color:var(--muted);font-weight:900;margin-bottom:10px;}
+    .sectionTitle{margin:0 0 10px; font-size:18px; color:var(--muted); font-weight:900; letter-spacing:.02em;}
     .card{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:18px;
       padding:16px;
+      box-shadow:0 1px 2px rgba(0,0,0,.04);
       margin:12px 0;
     }
 
-    .grid{display:grid;gap:12px;}
-    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr;}}
+    .grid{display:grid; gap:12px;}
+    @media(min-width:900px){ .grid{grid-template-columns:1fr 1fr;} }
 
     .rule{
       border-left:5px solid var(--accent);
@@ -97,18 +104,43 @@
       border-radius:14px;
       padding:12px;
     }
-    .dark .rule{background:#23243a;}
+    .dark .rule{ background:#23243a; }
 
-    .box{
-      border:1px solid var(--border);
-      background:var(--soft);
+    .row{display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;}
+    label{display:block; font-size:13px; color:var(--muted); font-weight:900; margin-bottom:6px;}
+
+    input{
+      font-size:16px;
+      padding:10px 12px;
       border-radius:14px;
-      padding:12px;
-      margin-top:10px;
+      border:1px solid var(--border);
+      background:#fff;
+      min-width:0;
+      width:100%;
+      max-width:160px;
+      color:var(--text);
+    }
+    .dark input{ background:var(--card); }
+
+    button{
+      font-size:14px;
+      font-weight:900;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fff;
+      cursor:pointer;
+      color:var(--text);
+    }
+    .dark button{ background:var(--card); }
+
+    button.primary{
+      background:var(--accent);
+      border-color:var(--accent);
+      color:#fff;
     }
 
-    .ok{background:var(--goodbg);border-color:var(--goodbd);}
-    .no{background:var(--badbg);border-color:var(--badbd);}
+    .darkToggle{min-width:44px; min-height:44px;}
 
     code{
       background:var(--soft);
@@ -116,140 +148,406 @@
       padding:2px 6px;
       border-radius:10px;
       font-weight:700;
+      color:var(--text);
     }
 
-    details summary{cursor:pointer;font-weight:900;}
+    .box{
+      border:1px solid var(--border);
+      background:var(--soft);
+      border-radius:14px;
+      padding:12px;
+      margin-top:10px;
+      color:var(--text);
+    }
+
+    .ok{background:var(--goodbg); border-color:var(--goodbd);}
+    .no{background:var(--badbg); border-color:var(--badbd);}
+
+    details summary{cursor:pointer; font-weight:900;}
     .tiny{font-size:13px;}
 
-    button{
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:#fff;
-      font-weight:900;
-      cursor:pointer;
+    @media (max-width:600px){
+      .wrap{padding:16px 12px 48px;}
+      .top{padding:14px;}
+      .topHeader{flex-wrap:wrap;}
+      .nav{gap:8px;}
+      .pill{padding:10px 14px; min-height:44px; display:inline-flex; align-items:center;}
+      .card{padding:14px;}
+      .row{flex-direction:column; align-items:stretch;}
+      input{max-width:none;}
+      button.primary{min-height:44px; width:100%;}
     }
-    .dark button{background:var(--card);}
-    button.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
   </style>
 </head>
 
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <div class="top">
+      <div class="topHeader">
+        <h1>Combinations</h1>
+        <button id="darkModeToggle" class="darkToggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+      <p class="sub">Simple: learn it → see it → practice it.</p>
 
-  <div class="top">
-    <div class="topHeader">
-      <h1>Combinations</h1>
-      <button onclick="document.body.classList.toggle('dark')">🌙</button>
+      <div class="nav">
+        <a class="pill" href="#learn">LEARN</a>
+        <a class="pill" href="#examples">EXAMPLES</a>
+        <a class="pill" href="#practice">PRACTICE</a>
+      </div>
     </div>
-    <p class="sub">Simple: learn it → see it → practice it.</p>
 
-    <div class="nav">
-      <a class="pill" href="#learn">LEARN</a>
-      <a class="pill" href="#examples">EXAMPLES</a>
-      <a class="pill" href="#practice">PRACTICE</a>
-    </div>
+    <script>
+      // Basic dark mode toggle (matches your current style)
+      document.getElementById('darkModeToggle').onclick = function() {
+        document.body.classList.toggle('dark');
+      };
+    </script>
+
+    <!-- LEARN -->
+    <section id="learn">
+      <div class="sectionTitle">LEARN</div>
+      <div class="card">
+
+        <h2>What is a combination?</h2>
+        <div class="rule">
+          <div class="big"><b>Order does NOT matter.</b> Changing the order does not create a new answer.</div>
+          <div class="muted tiny" style="margin-top:6px;">Example: {A, B, C} is the same group as {C, B, A}.</div>
+        </div>
+
+        <h3>When do you use combinations?</h3>
+        <ul>
+          <li>Choosing a group / team / committee</li>
+          <li>Picking items where the order doesn’t change anything</li>
+          <li>Anytime you only care <b>who is chosen</b>, not the order</li>
+        </ul>
+
+        <h3>What do <code>n</code> and <code>r</code> mean?</h3>
+        <div class="grid">
+          <div class="box">
+            <div class="big"><code>n</code> = total choices you have</div>
+            <p class="muted" style="margin:6px 0 0;">Example: 12 students available → <code>n = 12</code></p>
+          </div>
+          <div class="box">
+            <div class="big"><code>r</code> = how many you choose</div>
+            <p class="muted" style="margin:6px 0 0;">Example: choose 4 students → <code>r = 4</code></p>
+          </div>
+        </div>
+
+        <h3>The combination formula</h3>
+        <div class="box" style="margin-bottom:8px;">
+          <b>This removes all the different orders.</b><br>
+          It counts each group only once.
+        </div>
+        <div class="box">
+          <b>Formula:</b> <code>C(n,r) = n! / ( r!(n−r)! )</code>
+        </div>
+
+        <!-- ✅ ADDED: FACTORIAL EXPLANATION (ONLY CHANGE) -->
+        <h3>What does <code>!</code> mean?</h3>
+        <div class="box">
+          <b><code>!</code> means factorial.</b><br>
+          It means you multiply a number by every whole number below it.
+          <div style="margin-top:10px;">
+            <code>5! = 5 · 4 · 3 · 2 · 1 = 120</code><br>
+            <code>3! = 3 · 2 · 1 = 6</code><br>
+            <code>1! = 1</code><br>
+            <code>0! = 1</code> <span class="muted tiny">(special rule)</span>
+          </div>
+        </div>
+
+        <details style="margin-top:10px;">
+          <summary>Why do we use factorials in combinations?</summary>
+          <p class="muted">
+            Factorials count arrangements, then combinations divide out repeated orders so each group is counted once.
+          </p>
+        </details>
+        <!-- ✅ END ADDED -->
+
+        <h3>Mini example</h3>
+        <div class="box">
+          <b>Choose 2 toppings from 5.</b><br>
+          <code>C(5,2) = 10</code><br>
+          Pepperoni + mushrooms is the same as mushrooms + pepperoni, so order doesn’t matter.
+        </div>
+
+        <details style="margin-top:18px;">
+          <summary>Quick tip: How do I know if it's a combination?</summary>
+          <p class="muted">If you can swap the order and nothing changes, it’s a combination.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- EXAMPLES -->
+    <section id="examples">
+      <div class="sectionTitle">EXAMPLES</div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Example 1: Committee</h2>
+          <p>
+            <b>Question:</b> How many ways can you choose 3 students from 10 to be on a committee?
+          </p>
+          <p>
+            <b>Why order doesn’t matter:</b><br>
+            A committee has no “first/second/third” — it’s just a group.
+          </p>
+          <div class="box">
+            <b>n</b> = 10, <b>r</b> = 3<br>
+            <b>Step 1:</b> Identify the formula: <br>
+            <code>C(n, r) = n! / ( r! &times; (n-r)! )</code><br><br>
+            <b>Step 2:</b> Substitute the values:<br>
+            <code>C(10, 3) = 10! / (3! &times; (10-3)!)</code><br>
+            <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 10! / (3! &times; 7!)</code><br><br>
+            <b>Step 3:</b> Write out 10!:<br>
+            <code>10! = 10&nbsp;&times;&nbsp;9&nbsp;&times;&nbsp;8&nbsp;&times;&nbsp;7!</code><br><br>
+            <b>Step 4:</b> Cancel out 7! on top and bottom:<br>
+            <code>10! / (3! &times; 7!) = (10&nbsp;&times;&nbsp;9&nbsp;&times;&nbsp;8) / 3!</code><br><br>
+            <b>Step 5:</b> Find 3!: <code>3! = 3&nbsp;&times;&nbsp;2&nbsp;&times;&nbsp;1 = 6</code><br><br>
+            <b>Step 6:</b> Calculate numerator:<br>
+            <code>10&nbsp;&times;&nbsp;9&nbsp;&times;&nbsp;8 = 720</code><br><br>
+            <b>Step 7:</b> Divide:<br>
+            <code>720 / 6 = 120</code><br><br>
+            <b>Final Answer:</b> <code>C(10,3) = 120</code>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Example 2: Choosing items</h2>
+          <p>
+            <b>Question:</b> How many ways can you choose 2 books from 8?
+          </p>
+          <p>
+            <b>Why order doesn’t matter:</b><br>
+            Choosing Book A and Book B is the same as choosing Book B and Book A.
+          </p>
+          <div class="box">
+            <b>n</b> = 8, <b>r</b> = 2<br>
+            <b>Step 1:</b> Use the combination formula:<br>
+            <code>C(n, r) = n! / (r! &times; (n-r)!)</code><br><br>
+            <b>Step 2:</b> Substitute the values:<br>
+            <code>C(8,2) = 8! / (2! &times; (8-2)!)</code><br>
+            <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 8! / (2! &times; 6!)</code><br><br>
+            <b>Step 3:</b> Write out 8!:<br>
+            <code>8! = 8&nbsp;&times;&nbsp;7&nbsp;&times;&nbsp;6!</code><br><br>
+            <b>Step 4:</b> Cancel out 6! on top and bottom:<br>
+            <code>8! / (2! &times; 6!) = (8&nbsp;&times;&nbsp;7) / 2!</code><br><br>
+            <b>Step 5:</b> Find 2!: <code>2! = 2&nbsp;&times;&nbsp;1 = 2</code><br><br>
+            <b>Step 6:</b> Calculate numerator:<br>
+            <code>8&nbsp;&times;&nbsp;7 = 56</code><br><br>
+            <b>Step 7:</b> Divide:<br>
+            <code>56 / 2 = 28</code><br><br>
+            <b>Final Answer:</b> <code>C(8,2) = 28</code>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Example 3: Not a combination</h2>
+          <p><b>Question:</b> How many ways can you assign President and Vice-President from 10 students?</p>
+          <div class="box no">
+            <b>Not a combination.</b> These are different roles, so <b>order matters</b>.<br>
+            <b>This is a permutation problem, not a combination.</b><br><br>
+            <b>Let's briefly show the permutation work for comparison:</b><br>
+            <b>Step 1:</b> First, pick a President (10 choices).<br>
+            <b>Step 2:</b> Then pick a Vice-President (9 remaining choices).<br>
+            <code>Total = 10 &times; 9 = 90</code><br>
+            <span class="muted tiny">In a permutation, choosing A for President and B for VP is different from B for President and A for VP.</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Quick calculator</h2>
+          <p class="muted tiny">Type n and r. It calculates combinations and shows steps.</p>
+
+          <div class="row">
+            <div>
+              <label for="n">n (total choices)</label>
+              <input id="n" type="number" min="0" value="10" />
+            </div>
+            <div>
+              <label for="r">r (chosen)</label>
+              <input id="r" type="number" min="0" value="3" />
+            </div>
+            <div>
+              <button class="primary" id="btnCalc" type="button">Calculate</button>
+            </div>
+          </div>
+
+          <div id="calcBox" class="box ok">
+            <div class="big" id="calcOut">C(10,3) = 120</div>
+            <div class="muted tiny" id="calcSteps">
+              <b>Step by step:</b><br>
+              1. Formula: C(n, r) = n! / (r! &times; (n-r)!)<br>
+              2. Substitute values: C(10,3) = 10! / (3! &times; 7!)<br>
+              3. 10! = 10 &times; 9 &times; 8 &times; 7!<br>
+              4. Cancelling 7!: (10 &times; 9 &times; 8) / 3!<br>
+              5. 3! = 6<br>
+              6. 10 &times; 9 &times; 8 = 720<br>
+              7. 720 / 6 = 120<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICE -->
+    <section id="practice">
+      <div class="sectionTitle">PRACTICE</div>
+
+      <div class="card">
+        <h2 style="margin-bottom:8px;">Combination Check</h2>
+        <div class="box">
+          <b>Is it a combination?</b>
+          <ul style="margin:8px 0 4px 20px;">
+            <li>It’s a group / selection <span class="muted tiny">(committee, team, chosen items)</span></li>
+            <li>Order does not change anything</li>
+            <li>You only care <b>who</b> is chosen, not the order</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-bottom:8px;">Exam-Style Combination Practice (8 Questions)</h2>
+        <div class="muted tiny" style="margin-bottom:10px;">Try each question. Click "Show solution" to check.</div>
+
+        <div class="grid practiceGrid">
+
+          <div>
+            <h3 style="margin:0;">1. Basic groups</h3>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q1.</b> Choose 3 students from 8.
+              <details>
+                <summary>Show solution</summary>
+                n = 8, r = 3<br>
+                C(8,3) = 56
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q2.</b> Choose 2 players from a team of 6.
+              <details>
+                <summary>Show solution</summary>
+                n = 6, r = 2<br>
+                C(6,2) = 15
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q3.</b> How many different groups of 4 can be made from 10 people?
+              <details>
+                <summary>Show solution</summary>
+                n = 10, r = 4<br>
+                C(10,4) = 210
+              </details>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0;">2. Real-life selections</h3>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q4.</b> A pizza shop has 9 toppings. How many ways can you choose 3 toppings?
+              <details>
+                <summary>Show solution</summary>
+                n = 9, r = 3<br>
+                C(9,3) = 84
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q5.</b> From 12 songs, how many playlists of 5 songs can be chosen (order doesn’t matter)?
+              <details>
+                <summary>Show solution</summary>
+                n = 12, r = 5<br>
+                C(12,5) = 792
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q6.</b> A class has 20 students. How many ways can you choose 4 to represent the class?
+              <details>
+                <summary>Show solution</summary>
+                n = 20, r = 4<br>
+                C(20,4) = 4,845
+              </details>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0;">3. “Trap-looking” but still combinations</h3>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q7.</b> Choose 3 letters from A, B, C, D, E. (Just choosing a set, not forming a code.)
+              <details>
+                <summary>Show solution</summary>
+                n = 5, r = 3<br>
+                C(5,3) = 10
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q8.</b> A bag has 14 different candies. How many ways can you pick 6 candies?
+              <details>
+                <summary>Show solution</summary>
+                n = 14, r = 6<br>
+                C(14,6) = 3,003
+              </details>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0;">4. Quick reminder</h3>
+
+            <div class="box ok" style="margin-top:8px;">
+              <b>Reminder:</b><br>
+              If the question says “choose” / “select” / “group” — it’s usually a combination.<br>
+              If it says “arrange” / “assign roles” / “first place” — it’s usually a permutation.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   </div>
 
-  <!-- LEARN -->
-  <section id="learn">
-    <div class="sectionTitle">LEARN</div>
-    <div class="card">
+  <script>
+    function factorial(x){
+      if(x < 0) return NaN;
+      let p = 1;
+      for(let i=2;i<=x;i++) p *= i;
+      return p;
+    }
 
-      <h2>What is a combination?</h2>
-      <div class="rule">
-        <b>Order does NOT matter.</b><br>
-        {A, B, C} is the same group as {C, B, A}.
-      </div>
+    function nCr(n,r){
+      if(r<0 || n<0 || r>n) return NaN;
+      return factorial(n) / (factorial(r) * factorial(n-r));
+    }
 
-      <h3>When do you use combinations?</h3>
-      <ul>
-        <li>Choosing groups or teams</li>
-        <li>Selecting items</li>
-        <li>Order does not change the result</li>
-      </ul>
+    const btn = document.getElementById('btnCalc');
+    btn?.addEventListener('click', () => {
+      const n = Number(document.getElementById('n').value);
+      const r = Number(document.getElementById('r').value);
 
-      <h3>What do <code>n</code> and <code>r</code> mean?</h3>
-      <div class="grid">
-        <div class="box"><b>n</b> = total choices available</div>
-        <div class="box"><b>r</b> = number you choose</div>
-      </div>
+      const out = document.getElementById('calcOut');
+      const steps = document.getElementById('calcSteps');
+      const box = document.getElementById('calcBox');
 
-      <h3>The combination formula</h3>
-      <div class="box">
-        <b>Formula:</b> <code>C(n,r) = n! / (r!(n−r)!)</code>
-      </div>
+      if(!Number.isFinite(n) || !Number.isFinite(r) || r>n || n<0 || r<0){
+        out.textContent = "Invalid — make sure 0 ≤ r ≤ n";
+        steps.textContent = "Tip: r cannot be bigger than n.";
+        box.className = "box no";
+        return;
+      }
 
-      <!-- FACTORIAL SECTION (NEW) -->
-      <h3>What does <code>!</code> mean?</h3>
-      <div class="box">
-        <b><code>!</code> means factorial.</b><br>
-        Multiply the number by every whole number below it.
-        <div style="margin-top:10px;">
-          <code>5! = 5 · 4 · 3 · 2 · 1 = 120</code><br>
-          <code>3! = 3 · 2 · 1 = 6</code><br>
-          <code>1! = 1</code><br>
-          <code>0! = 1</code> <span class="tiny">(special rule)</span>
-        </div>
-      </div>
-
-      <details style="margin-top:10px;">
-        <summary>Why factorials appear in combinations</summary>
-        <p class="tiny">
-          Factorials help remove different orders so each group is counted once.
-        </p>
-      </details>
-
-      <h3>Mini example</h3>
-      <div class="box">
-        Choose 2 toppings from 5:<br>
-        <code>C(5,2) = 10</code>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- EXAMPLES -->
-  <section id="examples">
-    <div class="sectionTitle">EXAMPLES</div>
-
-    <div class="grid">
-      <div class="card">
-        <h2>Example: Committee</h2>
-        Choose 3 students from 10.
-        <div class="box">
-          <code>C(10,3) = 120</code>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Not a combination</h2>
-        Assign President and Vice-President.
-        <div class="box no">
-          Order matters → permutation.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRACTICE -->
-  <section id="practice">
-    <div class="sectionTitle">PRACTICE</div>
-
-    <div class="card">
-      <div class="box"><b>Reminder:</b> If order doesn’t matter → combination.</div>
-
-      <div class="box">Q1: Choose 3 from 8 → <b>56</b></div>
-      <div class="box">Q2: Choose 2 from 6 → <b>15</b></div>
-      <div class="box">Q3: Choose 4 from 10 → <b>210</b></div>
-      <div class="box">Q4: Choose 3 toppings from 9 → <b>84</b></div>
-      <div class="box">Q5: Choose 5 songs from 12 → <b>792</b></div>
-      <div class="box">Q6: Choose 4 from 20 → <b>4845</b></div>
-      <div class="box">Q7: Choose 3 letters from A–E → <b>10</b></div>
-      <div class="box">Q8: Choose 6 candies from 14 → <b>3003</b></div>
-    </div>
-  </section>
-
-</div>
+      const ans = nCr(n,r);
+      out.textContent = `C(${n},${r}) = ${ans.toLocaleString()}`;
+      steps.innerHTML =
+        `<b>Step by step:</b><br>
+         1. Formula: C(n, r) = n! / (r! &times; (n-r)!)<br>
+         2. Substitute values: C(${n},${r}) = ${n}! / (${r}! &times; ${(n-r)}!)<br>
+         3. Use factorial cancellation where possible, then calculate.`;
+      box.className = "box ok";
+    });
+  </script>
 </body>
 </html>
