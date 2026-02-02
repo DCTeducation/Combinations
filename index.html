@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Combinations | DCT Education</title>
+
   <style>
     :root{
       --text:#0f172a;
@@ -17,470 +18,467 @@
       --goodbd:#b7f0cd;
       --badbg:#fff1f2;
       --badbd:#fecdd3;
-      --header-bg:#ffffff;
-      --header-border:#e2e8f0;
-      --input-bg:#ffffff;
-      --shadow:0 1px 3px rgba(0,0,0,.06);
-      --shadow-lg:0 4px 12px rgba(0,0,0,.08);
     }
 
-    .dark{
-      --text:#f1f5f9;
-      --muted:#94a3b8;
-      --bg:#0f172a;
-      --card:#1e293b;
-      --border:#334155;
-      --soft:#1e293b;
+    .dark {
+      --text:#f4f6fa;
+      --muted:#b8c2d1;
+      --bg:#181924;
+      --card:#23243a;
+      --border:#2c2f40;
+      --soft:#1e1f2b;
       --accent:#3b82f6;
-      --goodbg:#14532d;
-      --goodbd:#22c55e;
-      --badbg:#450a0a;
-      --badbd:#ef4444;
-      --header-bg:#1e293b;
-      --header-border:#334155;
-      --input-bg:#1e293b;
-      --shadow:0 1px 3px rgba(0,0,0,.2);
-      --shadow-lg:0 4px 12px rgba(0,0,0,.3);
+      --goodbg:#1c3731;
+      --goodbd:#14b88c;
+      --badbg:#2c1c22;
+      --badbd:#dd4366;
     }
 
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      background:var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      line-height:1.6;
+      background:var(--soft);
+      line-height:1.55;
       overflow-x:hidden;
     }
 
-    /* Sticky header */
-    .stickyHeader{
-      position:sticky;
-      top:0;
-      z-index:100;
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:12px 16px;
-      padding:14px max(16px, env(safe-area-inset-right)) 14px max(16px, env(safe-area-inset-left));
-      background:var(--header-bg);
-      border-bottom:1px solid var(--header-border);
-      box-shadow:var(--shadow);
-    }
-    .stickyHeader h1{
-      margin:0;
-      font-size:clamp(1.25rem, 4vw, 1.75rem);
-      font-weight:800;
-      letter-spacing:-.02em;
-      flex:1;
-      min-width:0;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      padding:6px 12px;
-      border-radius:999px;
-      background:var(--soft);
-      border:1px solid var(--border);
-      font-size:0.8rem;
-      font-weight:700;
-      color:var(--muted);
-    }
-    .darkToggle{
-      flex-shrink:0;
-      min-width:44px;
-      min-height:44px;
-      padding:0 12px;
-      font-size:1.1rem;
-      background:var(--soft);
-      border:1px solid var(--border);
-      border-radius:10px;
-      color:var(--text);
-      cursor:pointer;
-      transition:background .15s, border-color .15s;
-    }
-    .darkToggle:hover{filter:brightness(1.05)}
-
-    main{
-      max-width:900px;
+    .wrap{
+      max-width:980px;
       margin:0 auto;
-      padding:28px 16px 64px;
-      padding-left:max(16px, env(safe-area-inset-left));
-      padding-right:max(16px, env(safe-area-inset-right));
+      padding:20px 16px 60px;
+      padding-left:max(16px,env(safe-area-inset-left));
+      padding-right:max(16px,env(safe-area-inset-right));
+      padding-bottom:max(60px,env(safe-area-inset-bottom));
     }
 
-    section{
-      margin-bottom:40px;
+    .top{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 1px 2px rgba(0,0,0,.04);
     }
-    section h2{
-      margin:0 0 4px 0;
-      font-size:1.35rem;
-      font-weight:800;
+
+    .topHeader{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    h1{margin:0; font-size:clamp(24px,5vw,30px); letter-spacing:-.02em;}
+    .sub{margin:6px 0 0; color:var(--muted)}
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+    .pill{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--soft);
       color:var(--text);
-      letter-spacing:-.02em;
+      font-weight:700;
+      font-size:13px;
+      text-decoration:none;
     }
-    section > h2 + .card{ margin-top:12px; }
 
+    section{margin-top:18px;}
+    .sectionTitle{margin:0 0 10px; font-size:18px; color:var(--muted); font-weight:900; letter-spacing:.02em;}
     .card{
       background:var(--card);
       border:1px solid var(--border);
-      border-radius:16px;
-      padding:24px;
-      margin-top:16px;
-      box-shadow:var(--shadow);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 1px 2px rgba(0,0,0,.04);
+      margin:12px 0;
     }
 
-    .formula{
-      font-size:1.15rem;
-      background:var(--soft);
-      border:1px solid var(--border);
-      padding:16px 20px;
-      border-radius:12px;
-      text-align:center;
-      font-weight:700;
-      color:var(--text);
-    }
+    .grid{display:grid; gap:12px;}
+    @media(min-width:900px){ .grid{grid-template-columns:1fr 1fr;} }
 
-    .highlight{
+    .rule{
+      border-left:5px solid var(--accent);
       background:#eff6ff;
-      border-left:4px solid var(--accent);
-      padding:14px 18px;
-      border-radius:10px;
-      margin:14px 0;
+      border-radius:14px;
+      padding:12px;
     }
-    .dark .highlight{
-      background:rgba(59,130,246,.15);
-      border-left-color:var(--accent);
+    .dark .rule{ background:#23243a; }
+
+    .row{display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;}
+    label{display:block; font-size:13px; color:var(--muted); font-weight:900; margin-bottom:6px;}
+
+    input{
+      font-size:16px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fff;
+      min-width:0;
+      width:100%;
+      max-width:160px;
+      color:var(--text);
+    }
+    .dark input{ background:var(--card); }
+
+    button{
+      font-size:14px;
+      font-weight:900;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fff;
+      cursor:pointer;
+      color:var(--text);
+    }
+    .dark button{ background:var(--card); }
+
+    button.primary{
+      background:var(--accent);
+      border-color:var(--accent);
+      color:#fff;
     }
 
-    /* Practice: progress + question blocks */
-    .progressBar{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-      padding:12px 16px;
-      margin-bottom:16px;
+    .darkToggle{min-width:44px; min-height:44px;}
+
+    code{
       background:var(--soft);
       border:1px solid var(--border);
-      border-radius:12px;
-      font-size:0.9rem;
+      padding:2px 6px;
+      border-radius:10px;
       font-weight:700;
       color:var(--text);
     }
-    .progressBar span{ color:var(--muted); font-weight:600; }
 
-    .questionBlock{
-      background:var(--card);
+    .box{
       border:1px solid var(--border);
+      background:var(--soft);
       border-radius:14px;
-      padding:18px 20px;
-      margin-bottom:16px;
-      box-shadow:var(--shadow);
-    }
-    .questionBlock p{
-      margin:0 0 12px 0;
-      font-size:1rem;
-      line-height:1.55;
-    }
-    .questionRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-    }
-    .questionRow input{
-      width:100%;
-      max-width:140px;
-      min-width:0;
-      padding:12px 14px;
-      font-size:1rem;
-      border:1px solid var(--border);
-      border-radius:10px;
-      background:var(--input-bg);
-      color:var(--text);
-    }
-    .questionRow button{
-      min-height:44px;
-      padding:10px 18px;
-      font-size:1rem;
-      font-weight:700;
-      background:var(--accent);
-      color:#fff;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-      transition:filter .15s;
-    }
-    .questionRow button:hover{ filter:brightness(1.05) }
-
-    .feedback{
-      margin-top:12px;
-      padding:12px 14px;
-      border-radius:10px;
-      font-weight:600;
-      display:none;
-      animation:feedbackIn .25s ease-out;
-    }
-    @keyframes feedbackIn{
-      from{ opacity:0; transform:translateY(-4px); }
-      to{ opacity:1; transform:translateY(0); }
-    }
-    .feedback.correct{
-      background:var(--goodbg);
-      border:1px solid var(--goodbd);
-      color:var(--text);
-    }
-    .feedback.incorrect{
-      background:var(--badbg);
-      border:1px solid var(--badbd);
+      padding:12px;
+      margin-top:10px;
       color:var(--text);
     }
 
-    /* Mobile */
+    .ok{background:var(--goodbg); border-color:var(--goodbd);}
+    .no{background:var(--badbg); border-color:var(--badbd);}
+
+    details summary{cursor:pointer; font-weight:900;}
+    .tiny{font-size:13px;}
+
     @media (max-width:600px){
-      main{ padding:20px 12px 48px; }
-      .card{ padding:18px; }
-      .questionBlock{ padding:16px; }
-      .questionRow input{ max-width:none; }
-      .questionRow button{ width:100%; }
+      .wrap{padding:16px 12px 48px;}
+      .top{padding:14px;}
+      .topHeader{flex-wrap:wrap;}
+      .nav{gap:8px;}
+      .pill{padding:10px 14px; min-height:44px; display:inline-flex; align-items:center;}
+      .card{padding:14px;}
+      .row{flex-direction:column; align-items:stretch;}
+      input{max-width:none;}
+      button.primary{min-height:44px; width:100%;}
     }
   </style>
 </head>
+
 <body>
-
-<header class="stickyHeader">
-  <h1>Combinations</h1>
-  <span class="badge">Order doesn’t matter</span>
-  <button type="button" class="darkToggle" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
-</header>
-
-<main>
-
-  <!-- LEARN -->
-  <section>
-    <h2>1. What is a Combination?</h2>
-    <div class="card">
-      <p>
-        Many students get confused between <strong>combinations</strong> and <strong>permutations</strong>.
-        Here’s the simple difference: in a <strong>combination</strong>, the <strong>order does NOT matter</strong>.
-      </p>
-      <div class="highlight">
-        Think of an ice cream shop: If you pick 2 flavors (chocolate and vanilla), it doesn’t matter which you choose first—your bowl has the same flavors either way.
+  <div class="wrap">
+    <div class="top">
+      <div class="topHeader">
+        <h1>Combinations</h1>
+        <button id="darkModeToggle" class="darkToggle" aria-label="Toggle dark mode">🌙</button>
       </div>
-      <p>Remember:</p>
-      <ul>
-        <li><strong>Permutations</strong>: order matters</li>
-        <li><strong>Combinations</strong>: order does NOT matter</li>
-      </ul>
-    </div>
-  </section>
+      <p class="sub">Simple: learn it → see it → practice it.</p>
 
-  <!-- N AND R -->
-  <section>
-    <h2>2. Understanding n and r</h2>
-    <div class="card">
-      <ul>
-        <li><strong>n</strong>: total items you can choose from</li>
-        <li><strong>r</strong>: number of items you are choosing</li>
-      </ul>
-      <div class="highlight" style="margin-bottom:10px;">
-        <strong>Mini-examples:</strong><br>
-        Choose 3 from 10: n = 10, r = 3<br>
-        Choose 2 from 6: n = 6, r = 2
-      </div>
-      <div class="highlight" style="background:var(--badbg);border:1px solid var(--badbd);border-left:4px solid var(--badbd);">
-        <strong>Watch out:</strong> r can never be bigger than n!
+      <div class="nav">
+        <a class="pill" href="#learn">LEARN</a>
+        <a class="pill" href="#examples">EXAMPLES</a>
+        <a class="pill" href="#practice">PRACTICE</a>
       </div>
     </div>
-  </section>
 
-  <!-- FORMULA -->
-  <section>
-    <h2>3. Combination Formula</h2>
-    <div class="card">
-      <p>
-        The combination formula tells you how many ways you can choose items from a group, when the order doesn’t matter.
-      </p>
-      <div class="formula">
-        C(n, r) = n! / ( r!(n − r)! )
+    <script>
+      // Basic dark mode toggle (matches your current style)
+      document.getElementById('darkModeToggle').onclick = function() {
+        document.body.classList.toggle('dark');
+      };
+    </script>
+
+    <!-- LEARN -->
+    <section id="learn">
+      <div class="sectionTitle">LEARN</div>
+      <div class="card">
+
+        <h2>What is a combination?</h2>
+        <div class="rule">
+          <div class="big"><b>Order does NOT matter.</b> Changing the order does not create a new answer.</div>
+          <div class="muted tiny" style="margin-top:6px;">Example: {A, B, C} is the same group as {C, B, A}.</div>
+        </div>
+
+        <h3>When do you use combinations?</h3>
+        <ul>
+          <li>Choosing a group / team / committee</li>
+          <li>Picking items where the order doesn’t change anything</li>
+          <li>Anytime you only care <b>who is chosen</b>, not the order</li>
+        </ul>
+
+        <h3>What do <code>n</code> and <code>r</code> mean?</h3>
+        <div class="grid">
+          <div class="box">
+            <div class="big"><code>n</code> = total choices you have</div>
+            <p class="muted" style="margin:6px 0 0;">Example: 12 students available → <code>n = 12</code></p>
+          </div>
+          <div class="box">
+            <div class="big"><code>r</code> = how many you choose</div>
+            <p class="muted" style="margin:6px 0 0;">Example: choose 4 students → <code>r = 4</code></p>
+          </div>
+        </div>
+
+        <h3>The combination formula</h3>
+        <div class="box" style="margin-bottom:8px;">
+          <b>This removes all the different orders.</b><br>
+          It counts each group only once.
+        </div>
+        <div class="box">
+          <b>Formula:</b> <code>C(n,r) = n! / ( r!(n−r)! )</code>
+        </div>
+
+        <h3>Mini example</h3>
+        <div class="box">
+          <b>Choose 2 toppings from 5.</b><br>
+          <code>C(5,2) = 10</code><br>
+          Pepperoni + mushrooms is the same as mushrooms + pepperoni, so order doesn’t matter.
+        </div>
+
+        <details style="margin-top:18px;">
+          <summary>Quick tip: How do I know if it's a combination?</summary>
+          <p class="muted">If you can swap the order and nothing changes, it’s a combination.</p>
+        </details>
       </div>
-      <p style="margin-top:14px;">
-        Don’t worry about doing the calculations by hand—calculators can do this for you! The main thing to know is <strong>what the formula is used for</strong>: it helps you count combinations when order is not important.
-      </p>
-    </div>
-  </section>
+    </section>
 
-  <!-- EXAMPLES -->
-  <section>
-    <h2>4. Worked Example</h2>
-    <div class="card">
-      <p><strong>Example:</strong></p>
-      <p>
-        Suppose you have <strong>n = 5</strong> pizza toppings and want to choose <strong>r = 2</strong> for your pizza. How many different pairs can you make?
-      </p>
-      <ul>
-        <li><strong>n</strong> (total options) = 5</li>
-        <li><strong>r</strong> (number to choose) = 2</li>
-      </ul>
-      <div class="formula">
-        C(5, 2) = 10
-      </div>
-      <p style="margin-top:14px;">
-        This is a combination because the order you pick toppings doesn’t matter (pepperoni + mushrooms = mushrooms + pepperoni).
-      </p>
-    </div>
-  </section>
+    <!-- EXAMPLES -->
+    <section id="examples">
+      <div class="sectionTitle">EXAMPLES</div>
 
-  <!-- PRACTICE -->
-  <section>
-    <h2>5. Practice Questions</h2>
-
-    <div class="progressBar" aria-live="polite">
-      <span id="progressText">Answered: 0 — Correct: 0</span>
-    </div>
-
-    <div class="card" style="padding:0; overflow:hidden;">
-      <div style="padding:20px 24px 24px 24px;">
-        <div class="questionBlock">
-          <p>1. In how many ways can a committee of 4 be formed from 9 students?</p>
-          <div class="questionRow">
-            <input id="q1" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q1',126)">Check</button>
+      <div class="grid">
+        <div class="card">
+          <h2>Example 1: Committee</h2>
+          <p>
+            <b>Question:</b> How many ways can you choose 3 students from 10 to be on a committee?
+          </p>
+          <p><b>Why order doesn’t matter:</b><br>
+            A committee has no “first/second/third” — it’s just a group.
+          </p>
+          <div class="box">
+            <b>n</b> = 10, <b>r</b> = 3<br>
+            <b>Answer:</b> <code>C(10,3) = 120</code>
           </div>
-          <div id="q1f" class="feedback"></div>
         </div>
 
-        <div class="questionBlock">
-          <p>2. A teacher needs to select 3 projects from 7 to display at a science fair. In how many ways can this be done?</p>
-          <div class="questionRow">
-            <input id="q2" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q2',35)">Check</button>
+        <div class="card">
+          <h2>Example 2: Choosing items</h2>
+          <p>
+            <b>Question:</b> How many ways can you choose 2 books from 8?
+          </p>
+          <p><b>Why order doesn’t matter:</b><br>
+            Choosing Book A and Book B is the same as choosing Book B and Book A.
+          </p>
+          <div class="box">
+            <b>n</b> = 8, <b>r</b> = 2<br>
+            <b>Answer:</b> <code>C(8,2) = 28</code>
           </div>
-          <div id="q2f" class="feedback"></div>
         </div>
 
-        <div class="questionBlock">
-          <p>3. From a club of 12 members, how many ways can 2 representatives be chosen?</p>
-          <div class="questionRow">
-            <input id="q3" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q3',66)">Check</button>
+        <div class="card">
+          <h2>Example 3: Not a combination</h2>
+          <p><b>Question:</b> How many ways can you assign President and Vice-President from 10 students?</p>
+          <div class="box no">
+            <b>Not a combination.</b> Those are different roles, so order matters.<br>
+            <b>This is a permutation problem, not a combination.</b>
           </div>
-          <div id="q3f" class="feedback"></div>
         </div>
 
-        <div class="questionBlock">
-          <p>4. How many different 5-person groups can you make from a set of 11 people?</p>
-          <div class="questionRow">
-            <input id="q4" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q4',462)">Check</button>
-          </div>
-          <div id="q4f" class="feedback"></div>
-        </div>
+        <div class="card">
+          <h2>Quick calculator</h2>
+          <p class="muted tiny">Type n and r. It calculates combinations.</p>
 
-        <div class="questionBlock">
-          <p>5. In a soccer tournament, how many ways can you select 6 players out of 14 to form a team?</p>
-          <div class="questionRow">
-            <input id="q5" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q5',3003)">Check</button>
+          <div class="row">
+            <div>
+              <label for="n">n (total choices)</label>
+              <input id="n" type="number" min="0" value="10" />
+            </div>
+            <div>
+              <label for="r">r (chosen)</label>
+              <input id="r" type="number" min="0" value="3" />
+            </div>
+            <div>
+              <button class="primary" id="btnCalc" type="button">Calculate</button>
+            </div>
           </div>
-          <div id="q5f" class="feedback"></div>
-        </div>
 
-        <div class="questionBlock">
-          <p>6. How many ways can you choose 3 books from 8 different books?</p>
-          <div class="questionRow">
-            <input id="q6" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q6',56)">Check</button>
+          <div id="calcBox" class="box ok">
+            <div class="big" id="calcOut">C(10,3) = 120</div>
+            <div class="muted tiny" id="calcSteps">10! / (3! · 7!)</div>
           </div>
-          <div id="q6f" class="feedback"></div>
-        </div>
-
-        <div class="questionBlock">
-          <p>7. From 10 friends, how many ways can you invite 4 to a party?</p>
-          <div class="questionRow">
-            <input id="q7" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q7',210)">Check</button>
-          </div>
-          <div id="q7f" class="feedback"></div>
-        </div>
-
-        <div class="questionBlock">
-          <p>8. A jury of 5 is chosen from 15 people. How many possible juries?</p>
-          <div class="questionRow">
-            <input id="q8" type="number" min="0" placeholder="Your answer">
-            <button type="button" onclick="check('q8',3003)">Check</button>
-          </div>
-          <div id="q8f" class="feedback"></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-</main>
+    <!-- PRACTICE -->
+    <section id="practice">
+      <div class="sectionTitle">PRACTICE</div>
 
-<script>
-(function(){
-  var STORAGE_KEY = 'combinations-dark';
-  var answered = {};
-  var correctIds = {};
-  var correctCount = 0;
+      <div class="card">
+        <h2 style="margin-bottom:8px;">Combination Check</h2>
+        <div class="box">
+          <b>Is it a combination?</b>
+          <ul style="margin:8px 0 4px 20px;">
+            <li>It’s a group / selection <span class="muted tiny">(committee, team, chosen items)</span></li>
+            <li>Order does not change anything</li>
+            <li>You only care <b>who</b> is chosen, not the order</li>
+          </ul>
+        </div>
+      </div>
 
-  function applyDark(isDark){
-    document.body.classList.toggle('dark', isDark);
-    var btn = document.getElementById('darkToggle');
-    if(btn) btn.textContent = isDark ? '☀️' : '🌙';
-  }
+      <div class="card">
+        <h2 style="margin-bottom:8px;">Exam-Style Combination Practice (8 Questions)</h2>
+        <div class="muted tiny" style="margin-bottom:10px;">Try each question. Click "Show solution" to check.</div>
 
-  function loadPreference(){
-    var stored = localStorage.getItem(STORAGE_KEY);
-    if(stored !== null) return stored === 'true';
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
+        <div class="grid practiceGrid">
 
-  function savePreference(isDark){
-    try{ localStorage.setItem(STORAGE_KEY, isDark ? 'true' : 'false'); }catch(e){}
-  }
+          <div>
+            <h3 style="margin:0;">1. Basic groups</h3>
 
-  document.getElementById('darkToggle').onclick = function(){
-    var isDark = document.body.classList.toggle('dark');
-    savePreference(isDark);
-    this.textContent = isDark ? '☀️' : '🌙';
-  };
+            <div class="box" style="margin-top:8px;">
+              <b>Q1.</b> Choose 3 students from 8.
+              <details>
+                <summary>Show solution</summary>
+                n = 8, r = 3<br>
+                C(8,3) = 56
+              </details>
+            </div>
 
-  applyDark(loadPreference());
-  if(window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
-    if(localStorage.getItem(STORAGE_KEY) === null) applyDark(e.matches);
-  });
+            <div class="box" style="margin-top:8px;">
+              <b>Q2.</b> Choose 2 players from a team of 6.
+              <details>
+                <summary>Show solution</summary>
+                n = 6, r = 2<br>
+                C(6,2) = 15
+              </details>
+            </div>
 
-  function updateProgress(){
-    var total = Object.keys(answered).length;
-    var el = document.getElementById('progressText');
-    if(el) el.textContent = 'Answered: ' + total + ' — Correct: ' + correctCount;
-  }
+            <div class="box" style="margin-top:8px;">
+              <b>Q3.</b> How many different groups of 4 can be made from 10 people?
+              <details>
+                <summary>Show solution</summary>
+                n = 10, r = 4<br>
+                C(10,4) = 210
+              </details>
+            </div>
+          </div>
 
-  window.check = function(id, answer){
-    var input = document.getElementById(id);
-    var feedback = document.getElementById(id + 'f');
-    if(!input || !feedback) return;
+          <div>
+            <h3 style="margin:0;">2. Real-life selections</h3>
 
-    var val = Number(input.value);
-    feedback.style.display = 'block';
+            <div class="box" style="margin-top:8px;">
+              <b>Q4.</b> A pizza shop has 9 toppings. How many ways can you choose 3 toppings?
+              <details>
+                <summary>Show solution</summary>
+                n = 9, r = 3<br>
+                C(9,3) = 84
+              </details>
+            </div>
 
-    if(val === answer){
-      feedback.textContent = 'Correct ✅';
-      feedback.className = 'feedback correct';
-      answered[id] = true;
-      if(!correctIds[id]){ correctIds[id] = true; correctCount++; }
-    } else {
-      feedback.innerHTML = 'Incorrect ❌ Order doesn’t matter → combination. Try again.';
-      feedback.className = 'feedback incorrect';
-      if(!answered[id]) answered[id] = true;
+            <div class="box" style="margin-top:8px;">
+              <b>Q5.</b> From 12 songs, how many playlists of 5 songs can be chosen (order doesn’t matter)?
+              <details>
+                <summary>Show solution</summary>
+                n = 12, r = 5<br>
+                C(12,5) = 792
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q6.</b> A class has 20 students. How many ways can you choose 4 to represent the class?
+              <details>
+                <summary>Show solution</summary>
+                n = 20, r = 4<br>
+                C(20,4) = 4,845
+              </details>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0;">3. “Trap-looking” but still combinations</h3>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q7.</b> Choose 3 letters from A, B, C, D, E. (Just choosing a set, not forming a code.)
+              <details>
+                <summary>Show solution</summary>
+                n = 5, r = 3<br>
+                C(5,3) = 10
+              </details>
+            </div>
+
+            <div class="box" style="margin-top:8px;">
+              <b>Q8.</b> A bag has 14 different candies. How many ways can you pick 6 candies?
+              <details>
+                <summary>Show solution</summary>
+                n = 14, r = 6<br>
+                C(14,6) = 3,003
+              </details>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin:0;">4. Quick reminder</h3>
+
+            <div class="box ok" style="margin-top:8px;">
+              <b>Reminder:</b><br>
+              If the question says “choose” / “select” / “group” — it’s usually a combination.<br>
+              If it says “arrange” / “assign roles” / “first place” — it’s usually a permutation.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function factorial(x){
+      if(x < 0) return NaN;
+      let p = 1;
+      for(let i=2;i<=x;i++) p *= i;
+      return p;
     }
-    updateProgress();
-  };
-})();
-</script>
 
+    function nCr(n,r){
+      if(r<0 || n<0 || r>n) return NaN;
+      return factorial(n) / (factorial(r) * factorial(n-r));
+    }
+
+    const btn = document.getElementById('btnCalc');
+    btn?.addEventListener('click', () => {
+      const n = Number(document.getElementById('n').value);
+      const r = Number(document.getElementById('r').value);
+
+      const out = document.getElementById('calcOut');
+      const steps = document.getElementById('calcSteps');
+      const box = document.getElementById('calcBox');
+
+      if(!Number.isFinite(n) || !Number.isFinite(r) || r>n || n<0 || r<0){
+        out.textContent = "Invalid — make sure 0 ≤ r ≤ n";
+        steps.textContent = "Tip: r cannot be bigger than n.";
+        box.className = "box no";
+        return;
+      }
+
+      const ans = nCr(n,r);
+      out.textContent = `C(${n},${r}) = ${ans.toLocaleString()}`;
+      steps.textContent = `${n}! / (${r}! · ${(n-r)}!)`;
+      box.className = "box ok";
+    });
+  </script>
 </body>
 </html>
