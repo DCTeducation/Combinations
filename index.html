@@ -208,43 +208,53 @@
       <div class="sectionTitle">LEARN</div>
       <div class="card">
 
-        <h2>What is a combination?</h2>
+        <h2>What is a Combination?</h2>
         <div class="rule">
-          <div class="big"><b>Order does NOT matter.</b> Changing the order does not create a new answer.</div>
-          <div class="muted tiny" style="margin-top:6px;">Example: {A, B, C} is the same group as {C, B, A}.</div>
+          <div class="big"><b>Order doesn’t matter!</b> If you swap the members of a group, you don’t get a new answer.</div>
+          <div class="muted tiny" style="margin-top:6px;">For example, {A, B, C} is the same as {C, B, A} — it’s still the same group.</div>
         </div>
 
-        <h3>When do you use combinations?</h3>
+        <h3>How do you know when to use combinations?</h3>
         <ul>
-          <li>Choosing a group / team / committee</li>
-          <li>Picking items where the order doesn’t change anything</li>
-          <li>Anytime you only care <b>who is chosen</b>, not the order</li>
+          <li>You are putting together a group, team, or committee (order doesn’t matter within the group)</li>
+          <li>You care only <strong>who</strong> is chosen, not the order they are picked</li>
+          <li>Any scenario where switching the order of your picks doesn’t make a new result</li>
         </ul>
 
-        <h3>What do <code>n</code> and <code>r</code> mean?</h3>
+        <h3>Meet <code>n</code> and <code>r</code></h3>
         <div class="grid">
           <div class="box">
-            <div class="big"><code>n</code> = total choices you have</div>
-            <p class="muted" style="margin:6px 0 0;">Example: 12 students available → <code>n = 12</code></p>
+            <div class="big"><code>n</code> = total number of things to choose from</div>
+            <p class="muted" style="margin:6px 0 0;">Example: If there are 12 students available, <code>n = 12</code>.</p>
           </div>
           <div class="box">
-            <div class="big"><code>r</code> = how many you choose</div>
-            <p class="muted" style="margin:6px 0 0;">Example: choose 4 students → <code>r = 4</code></p>
+            <div class="big"><code>r</code> = how many you are choosing</div>
+            <p class="muted" style="margin:6px 0 0;">Example: If you need 4 students, <code>r = 4</code>.</p>
           </div>
         </div>
 
-        <h3>The combination formula</h3>
+        <h3>The Combination Formula</h3>
         <div class="box" style="margin-bottom:8px;">
-          <b>This removes all the different orders.</b><br>
-          It counts each group only once.
+          <b>This formula ensures each group is only counted once.</b><br>
+          It ignores all the different ways you could order the same selection.
         </div>
         <div class="box">
-          <b>Formula:</b> <code>C(n,r) = n! / ( r!(n−r)! )</code>
+          <b>Formula:</b> <code>C(n, r) = n! / ( r! × (n−r)! )</code>
+        </div>
+        <div class="muted tiny" style="margin-top:5px;">
+          <strong>Note:</strong> The symbol <strong>!</strong> means “factorial,” which multiplies the number by every positive integer below it. So 5! = 5×4×3×2×1 = 120.
+        </div>
+
+        <h3>Quick Example</h3>
+        <div class="box">
+          <b>How many ways to choose 2 toppings from 5?</b><br>
+          <code>C(5, 2) = 10</code><br>
+          Picking pepperoni and mushrooms is the same as mushrooms and pepperoni — order isn’t important!
         </div>
 
         <details style="margin-top:18px;">
-          <summary>Quick tip: How do I know if it's a combination?</summary>
-          <p class="muted">If you can swap the order and nothing changes, it’s a combination.</p>
+          <summary>How to tell if order matters or not?</summary>
+          <p class="muted">Ask yourself: If I rearrange the chosen items, do I get something new? If not, it’s a combination!</p>
         </details>
       </div>
     </section>
