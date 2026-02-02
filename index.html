@@ -266,12 +266,27 @@
           <p>
             <b>Question:</b> How many ways can you choose 3 students from 10 to be on a committee?
           </p>
-          <p><b>Why order doesn’t matter:</b><br>
+          <p>
+            <b>Why order doesn’t matter:</b><br>
             A committee has no “first/second/third” — it’s just a group.
           </p>
           <div class="box">
             <b>n</b> = 10, <b>r</b> = 3<br>
-            <b>Answer:</b> <code>C(10,3) = 120</code>
+            <b>Step 1:</b> Identify the formula: <br>
+            <code>C(n, r) = n! / ( r! &times; (n-r)! )</code><br><br>
+            <b>Step 2:</b> Substitute the values:<br>
+            <code>C(10, 3) = 10! / (3! &times; (10-3)!)</code><br>
+            <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 10! / (3! &times; 7!)</code><br><br>
+            <b>Step 3:</b> Write out 10!:<br>
+            <code>10! = 10&nbsp;&times;&nbsp;9&nbsp;&times;&nbsp;8&nbsp;&times;&nbsp;7!</code><br><br>
+            <b>Step 4:</b> Cancel out 7! on top and bottom:<br>
+            <code>10! / (3! &times; 7!) = (10&nbsp;&times;&nbsp;9&nbsp;&times;&nbsp;8) / 3!</code><br><br>
+            <b>Step 5:</b> Find 3!: <code>3! = 3&nbsp;&times;&nbsp;2&nbsp;&times;&nbsp;1 = 6</code><br><br>
+            <b>Step 6:</b> Calculate numerator:<br>
+            <code>10&nbsp;&times;&nbsp;9&nbsp;&times;&nbsp;8 = 720</code><br><br>
+            <b>Step 7:</b> Divide:<br>
+            <code>720 / 6 = 120</code><br><br>
+            <b>Final Answer:</b> <code>C(10,3) = 120</code>
           </div>
         </div>
 
@@ -280,12 +295,27 @@
           <p>
             <b>Question:</b> How many ways can you choose 2 books from 8?
           </p>
-          <p><b>Why order doesn’t matter:</b><br>
+          <p>
+            <b>Why order doesn’t matter:</b><br>
             Choosing Book A and Book B is the same as choosing Book B and Book A.
           </p>
           <div class="box">
             <b>n</b> = 8, <b>r</b> = 2<br>
-            <b>Answer:</b> <code>C(8,2) = 28</code>
+            <b>Step 1:</b> Use the combination formula:<br>
+            <code>C(n, r) = n! / (r! &times; (n-r)!)</code><br><br>
+            <b>Step 2:</b> Substitute the values:<br>
+            <code>C(8,2) = 8! / (2! &times; (8-2)!)</code><br>
+            <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 8! / (2! &times; 6!)</code><br><br>
+            <b>Step 3:</b> Write out 8!:<br>
+            <code>8! = 8&nbsp;&times;&nbsp;7&nbsp;&times;&nbsp;6!</code><br><br>
+            <b>Step 4:</b> Cancel out 6! on top and bottom:<br>
+            <code>8! / (2! &times; 6!) = (8&nbsp;&times;&nbsp;7) / 2!</code><br><br>
+            <b>Step 5:</b> Find 2!: <code>2! = 2&nbsp;&times;&nbsp;1 = 2</code><br><br>
+            <b>Step 6:</b> Calculate numerator:<br>
+            <code>8&nbsp;&times;&nbsp;7 = 56</code><br><br>
+            <b>Step 7:</b> Divide:<br>
+            <code>56 / 2 = 28</code><br><br>
+            <b>Final Answer:</b> <code>C(8,2) = 28</code>
           </div>
         </div>
 
@@ -293,14 +323,19 @@
           <h2>Example 3: Not a combination</h2>
           <p><b>Question:</b> How many ways can you assign President and Vice-President from 10 students?</p>
           <div class="box no">
-            <b>Not a combination.</b> Those are different roles, so order matters.<br>
-            <b>This is a permutation problem, not a combination.</b>
+            <b>Not a combination.</b> These are different roles, so <b>order matters</b>.<br>
+            <b>This is a permutation problem, not a combination.</b><br><br>
+            <b>Let's briefly show the permutation work for comparison:</b><br>
+            <b>Step 1:</b> First, pick a President (10 choices).<br>
+            <b>Step 2:</b> Then pick a Vice-President (9 remaining choices).<br>
+            <code>Total = 10 &times; 9 = 90</code><br>
+            <span class="muted tiny">In a permutation, choosing A for President and B for VP is different from B for President and A for VP.</span>
           </div>
         </div>
 
         <div class="card">
           <h2>Quick calculator</h2>
-          <p class="muted tiny">Type n and r. It calculates combinations.</p>
+          <p class="muted tiny">Type n and r. It calculates combinations and shows steps.</p>
 
           <div class="row">
             <div>
@@ -318,7 +353,16 @@
 
           <div id="calcBox" class="box ok">
             <div class="big" id="calcOut">C(10,3) = 120</div>
-            <div class="muted tiny" id="calcSteps">10! / (3! · 7!)</div>
+            <div class="muted tiny" id="calcSteps">
+              <b>Step by step:</b><br>
+              1. Formula: C(n, r) = n! / (r! &times; (n-r)!)<br>
+              2. Substitute values: C(10,3) = 10! / (3! &times; 7!)<br>
+              3. 10! = 10 &times; 9 &times; 8 &times; 7!<br>
+              4. Cancelling 7!: (10 &times; 9 &times; 8) / 3!<br>
+              5. 3! = 6<br>
+              6. 10 &times; 9 &times; 8 = 720<br>
+              7. 720 / 6 = 120<br>
+            </div>
           </div>
         </div>
       </div>
